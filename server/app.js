@@ -2,6 +2,7 @@ const express = require('express'),
     Session = require('express-session'),
     bodyParse = require('body-parser'),
     mongoose = require('mongoose'),
+    path = require('path'),
     middleware = require('connect-ensure-login'),
     FileStore = require('session-file-store')(Session),
     config = require('./config/default'),
@@ -29,7 +30,9 @@ app.use(Session({
         path : './server/sessions'
     }),
     secret: config.server.secret,
-    maxAge : Date().now + (60 * 1000 * 30)
+    maxAge : Date().now + (60 * 1000 * 30),
+    resave: true,
+    saveUninitialized: true,
 }));
 
 app.get('*', middleware.ensureLoggedIn(), (req, res) => {
