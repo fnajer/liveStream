@@ -1,6 +1,7 @@
 const NodeMediaServer = require('node-media-server'),
     config = require('./config/default').rtmp_server,
-    User = require('./database/Schema').User;
+    User = require('./database/Schema').User,
+    helpers = require('./helpers/helpers'),
 
 nms = new NodeMediaServer(config);
  
@@ -14,7 +15,7 @@ nms.on('prePublish', async (id, StreamPath, args) => {
                 let session = nms.getSession(id);
                 session.reject();
             } else {
-                // do stuff
+                helpers.generateStreamThumbnail(stream_key);
             }
         }
     });
