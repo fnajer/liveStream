@@ -1,5 +1,5 @@
 import React from "react";
-import {Router, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import Navbar from './Navbar';
 import LiveStreams from './LiveStreams';
 import Settings from './Settings';
