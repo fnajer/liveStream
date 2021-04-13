@@ -43,6 +43,11 @@ app.use('/register', require('./routes/register'));
 app.use('/streams', require('./routes/streams'));
 app.use('/settings', require('./routes/settings'));
 app.use('/user', require('./routes/user'));
+app.get('/logout', (req, res) => {
+    req.logout();
+    req.session.destroy();
+    res.redirect('/login');
+});
 
 app.get('*', middleware.ensureLoggedIn(), (req, res) => {
     res.render('index');
