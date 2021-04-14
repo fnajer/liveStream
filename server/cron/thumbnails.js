@@ -7,13 +7,19 @@ const CronJob = require('cron').CronJob,
 const job = new CronJob('*/5 * * * * *', function () {
     request
         .get(`${config.server.baseURL}:` + port + '/api/streams', function (error, response, body) {
-            let streams = JSON.parse(body);
-            if (typeof (streams['live'] !== undefined)) {
-                let live_streams = streams['live'];
-                for (let stream in live_streams) {
-                    if (!live_streams.hasOwnProperty(stream)) continue;
-                    helpers.generateStreamThumbnail(stream);
+            let streams;
+            try {
+                streams = JSON.parse(body);
+                if (typeof (streams['live'] !== undefined)) {
+                    let live_streams = streams['live'];
+                    for (let stream in live_streams) {
+                        if (!live_streams.hasOwnProperty(stream)) continue;
+                        helpers.generateStreamThumbnail(stream);
+                    }
                 }
+            } catch(e) {
+                console.error('Error: its impossible to JSON.parse: ' + body);
+                job.stop();
             }
         });
 }, null, true);
