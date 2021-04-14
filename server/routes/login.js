@@ -15,9 +15,15 @@ router.get('/',
     });
  
 router.post('/', passport.authenticate('localLogin', {
-    successRedirect : '/',
-    failureRedirect : '/login',
-    failureFlash : true
-}));
+        failureRedirect : '/register',
+        failureFlash : true
+    }),
+        // (req, res) => { res.render('index'); } // render doesnt match. We need only redirect. But redirect dont let us finish response and save session correctly
+        (req, res) => { res.send(`<script>
+            setTimeout(function () {
+               window.location = "/";
+            }, 0)
+          </script>`); }
+    );
  
 module.exports = router;
