@@ -3,14 +3,24 @@ const passport = require('passport'),
     User = require('../database/Schema').User,
     shortid = require('shortid');
  
+// passport.serializeUser( (user, cb) => {
+//     cb(null, user);
+// });
+ 
+// passport.deserializeUser( (obj, cb) => {
+//     cb(null, obj);
+// });
 passport.serializeUser( (user, cb) => {
-    cb(null, user);
-});
- 
-passport.deserializeUser( (obj, cb) => {
-    cb(null, obj);
-});
- 
+    console.info('serializeUser');
+    cb(null, JSON.stringify(user));
+    console.info('serializing finished', JSON.stringify(user));
+  });
+  
+  passport.deserializeUser( (obj, cb) => {
+    console.info('deserializeUser');
+    cb(null, JSON.parse(obj));
+    console.info('deserializing finished', JSON.parse(obj));
+  });
 // Passport strategy for handling user registration
 passport.use('localRegister', new LocalStrategy({
         usernameField: 'email',
@@ -52,7 +62,6 @@ passport.use('localLogin', new LocalStrategy({
         passReqToCallback: true
     },
     (req, email, password, done) => {
- 
         User.findOne({'email': email}, (err, user) => {
             if (err)
                 return done(err);
@@ -62,7 +71,6 @@ passport.use('localLogin', new LocalStrategy({
  
             if (!user.validPassword(password))
                 return done(null, false, req.flash('password', 'Oops! Wrong password.'));
- 
             return done(null, user);
         });
     }));
