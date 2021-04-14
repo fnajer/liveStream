@@ -1,8 +1,7 @@
 import React from 'react';
 import videojs from 'video.js'
 import axios from 'axios';
-import config from '../../server/config/default';
- 
+import config from '../config/default';
  
 export default class VideoPlayer extends React.Component {
  
