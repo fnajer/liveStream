@@ -1,8 +1,11 @@
 const config = {
   rtmp_server: {
-      http: {
-          port: 8888,
-      },
+    server: {
+        baseURL: process.env.BASEURL || 'http://127.0.0.1'
+    },
+    http: {
+        port: process.env.PORT_OUT || 8888,
+    },
   }
 };
 
