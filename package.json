@@ -5,8 +5,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/supervisor -w server ./server/app.js",
-    "watch": "./node_modules/.bin/webpack"
+    "dev": "./node_modules/.bin/supervisor -w server ./server/app.js",
+    "build": "webpack build",
+    "start": "node ./server/app.js",
+    "prod": "node ./server/app.js"
   },
   "author": "",
   "license": "ISC",
