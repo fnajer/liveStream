@@ -1,9 +1,11 @@
+const devMode = process.env.NODE_ENV != 'production';
+
 const config = {
   server: {
       secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc',
       port: 3333
   },
-  db: process.env.NODE_ENV == 'production' ? process.env.DATABASE_URL : 'mongodb://127.0.0.1/nodeStream',
+  db: !devMode ? process.env.DATABASE_URL : 'mongodb://127.0.0.1/nodeStream',
   rtmp_server: {
       rtmp: {
           port: 1935,
@@ -18,7 +20,7 @@ const config = {
           allow_origin: '*'
       },
       trans: {
-          ffmpeg: 'D:/Program/ffmpeg/bin/ffmpeg.exe',
+          ffmpeg: !devMode ? 'ffmpeg' : 'D:/Program/ffmpeg/bin/ffmpeg.exe',
           tasks: [
               {
                   app: 'live',
