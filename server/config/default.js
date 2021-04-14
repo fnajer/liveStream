@@ -3,6 +3,7 @@ const config = {
       secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc',
       port: 3333
   },
+  db: process.env.NODE_ENV='production' ? process.env.DATABASE_URL : 'mongodb://127.0.0.1/nodeStream',
   rtmp_server: {
       rtmp: {
           port: 1935,
