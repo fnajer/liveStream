@@ -20,7 +20,7 @@ const config = {
           allow_origin: '*'
       },
       trans: {
-          ffmpeg: !devMode ? '/app/vendor/ffmpeg' : 'D:/Program/ffmpeg/bin/ffmpeg.exe',
+          ffmpeg: !devMode ? '/app/vendor/ffmpeg/ffmpeg' : 'D:/Program/ffmpeg/bin/ffmpeg.exe',
           tasks: [
               {
                   app: 'live',
