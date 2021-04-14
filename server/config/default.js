@@ -3,7 +3,7 @@ const devMode = process.env.NODE_ENV != 'production';
 const config = {
   server: {
       secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc',
-      port: 3333
+      port: process.env.PORT || 3333
   },
   db: !devMode ? process.env.DATABASE_URL : 'mongodb://127.0.0.1/nodeStream',
   rtmp_server: {
