@@ -6,3 +6,10 @@
 html,body{
   font-family: 'Dosis', sans-serif;
 }
+
+* {
+  box-sizing: content-box;
+}
+.row {
+  margin: 0;
+}
