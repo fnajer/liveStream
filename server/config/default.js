@@ -1,4 +1,4 @@
-const devMode = process.env.NODE_ENV != 'production';
+const pathToFfmpeg = require('ffmpeg-static');
 
 const config = {
   server: {
@@ -6,7 +6,7 @@ const config = {
       port: process.env.PORT || 3333,
       baseURL: process.env.BASEURL || 'http://127.0.0.1'
   },
-  db: !devMode ? process.env.DATABASE_URL : 'mongodb://127.0.0.1/nodeStream',
+  db: process.env.DATABASE_URL || 'mongodb://127.0.0.1/nodeStream',
   rtmp_server: {
       rtmp: {
           port: process.env.PORT_IN || 1935,
@@ -21,7 +21,7 @@ const config = {
           allow_origin: '*'
       },
       trans: {
-          ffmpeg: !devMode ? process.env.FFMPEG_PATH : 'D:/Program/ffmpeg/bin/ffmpeg.exe',
+          ffmpeg: process.env.FFMPEG_PATH || pathToFfmpeg || 'D:/Program/ffmpeg/bin/ffmpeg.exe',
           tasks: [
               {
                   app: 'live',

@@ -6,8 +6,7 @@ const config = {
   },
   rtmp_server: {
     http: {
-        // port: process.env.PORT_OUT || 8888,
-        port: 80,
+        port: 8888,
     },
   }
 };
