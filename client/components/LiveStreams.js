@@ -2,7 +2,6 @@ import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import './LiveStreams.scss';
-import config from '../config/default';
  
 export default class LiveStreams extends React.Component {
  
@@ -18,28 +17,20 @@ export default class LiveStreams extends React.Component {
     }
  
     getLiveStreams() {
-        axios.get(`${config.server.baseURL}:` + config.rtmp_server.http.port + '/api/streams')
-            .then(res => {
-                let streams = res.data;
-                if (typeof (streams['live'] !== 'undefined')) {
-                    this.getStreamsInfo(streams['live']);
+        axios.get(
+            '/streams/list',
+            {
+                headers: {
+                    "Content-Type": "application/json",
                 }
+            }
+        ).then(response => {
+                this.setState({
+                    live_streams: response.data
+                });
             });
     }
  
-    getStreamsInfo(live_streams) {
-        axios.get('/streams/info', {
-            params: {
-                streams: live_streams
-            }
-        }).then(res => {
-            this.setState({
-                live_streams: res.data
-            }, () => {
-                console.log(this.state);
-            });
-        });
-    }
  
     render() {
         let streams = this.state.live_streams.map((stream, index) => {
