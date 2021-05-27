@@ -4,3 +4,4 @@ public
 server/sessions/*
 server/thumbnails/*
 server/media/*
+launch.json
