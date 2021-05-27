@@ -55,6 +55,32 @@ export default class Settings extends React.Component {
                         </div>
                     </div>
                 </div>
+
+                <form className="container mt-5" onSubmit={this.handleSubmit}>
+                    <h4>Choose data transmission medium:</h4>
+                    <hr className="my-4"/>
+ 
+                    <div className="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+                        <div className="row">
+                            <div className="w-100">
+                                <input type="radio" id="connType1" name="connType" value="wifi"/> 
+                                <label htmlFor="connType1">Wi-Fi/Cellular</label>
+                            </div>
+
+                            <div className="w-100">
+                                <input type="radio" id="connType2" name="connType" value="eth"/> 
+                                <label htmlFor="connType2">Ethernet</label>
+                            </div>
+                        </div>
+                        <div className="row">
+                            <button
+                                type="submit"
+                                className="btn btn-dark mt-2">
+                                Set
+                            </button>
+                        </div>
+                    </div>
+                </form>
  
                 <div className="container mt-5">
                     <h4>How to Stream</h4>
