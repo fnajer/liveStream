@@ -15,6 +15,7 @@ export default class Settings extends React.Component {
  
     componentDidMount() {
         this.getStreamKey();
+        this.getConnType();
     }
  
     generateStreamKey(e){
@@ -23,7 +24,7 @@ export default class Settings extends React.Component {
                 this.setState({
                     stream_key : res.data.stream_key
                 });
-            })
+            });
     }
  
     getStreamKey(){
@@ -32,9 +33,27 @@ export default class Settings extends React.Component {
                 this.setState({
                     stream_key : res.data.stream_key
                 });
-            })
+            });
     }
  
+    getConnType(){
+        axios.get('/settings/connection')
+            .then(res => {
+                console.log(res.data.connType);
+                if (res.data.connType) {
+                    document.querySelector(`input[value="${res.data.connType}"]`).checked = true;
+                }
+            });
+    }
+
+    handleSubmit = e => {
+        e.preventDefault();
+        const connType = document.querySelector('input[name="connType"]:checked').value;
+        axios.post('/settings/connection', {
+            connType,
+          });
+    }
+
     render() {
         return (
             <React.Fragment>
