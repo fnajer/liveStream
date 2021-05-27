@@ -3,24 +3,14 @@ const passport = require('passport'),
     User = require('../database/Schema').User,
     shortid = require('shortid');
  
-// passport.serializeUser( (user, cb) => {
-//     cb(null, user);
-// });
- 
-// passport.deserializeUser( (obj, cb) => {
-//     cb(null, obj);
-// });
 passport.serializeUser( (user, cb) => {
-    console.info('serializeUser');
-    cb(null, JSON.stringify(user));
-    console.info('serializing finished', JSON.stringify(user));
-  });
-  
-  passport.deserializeUser( (obj, cb) => {
-    console.info('deserializeUser');
-    cb(null, JSON.parse(obj));
-    console.info('deserializing finished', JSON.parse(obj));
-  });
+    cb(null, user);
+});
+ 
+passport.deserializeUser( (obj, cb) => {
+    cb(null, obj);
+});
+
 // Passport strategy for handling user registration
 passport.use('localRegister', new LocalStrategy({
         usernameField: 'email',
