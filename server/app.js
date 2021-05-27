@@ -6,18 +6,16 @@ const express = require('express'),
     FileStore = require('session-file-store')(Session),
     config = require('./config/default'),
     flash = require('connect-flash'),
-    port = config.server.port,
+    port = config.SERVER.PORT,
     app = express(),
-    passport = require('./auth/passport'),
-    node_media_server = require('./media_server'),
-    thumbnail_generator = require('./cron/thumbnails');
+    passport = require('./auth/passport');
 
-mongoose.connect(config.db, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(config.DB, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.set('useFindAndModify', false);
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 app.use(express.static('public'));
-app.use('/thumbnails', express.static('server/thumbnails'));
 app.use(flash());
 
 app.use(express.urlencoded({extended: true}));
@@ -30,7 +28,7 @@ app.use(Session({
     cookie: {
         httpOnly: false,
     },
-    secret: config.server.secret,
+    secret: config.SERVER.SECRET,
     maxAge : Date.now() + (60 * 1000 * 30),
     resave: true,
     saveUninitialized: true,
@@ -56,5 +54,3 @@ app.get('*', middleware.ensureLoggedIn('/login'), (req, res) => {
 });
 
 app.listen(port, () => console.log(`App listening on ${port}!`));
-node_media_server.run();
-thumbnail_generator.start();
