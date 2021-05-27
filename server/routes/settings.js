@@ -35,5 +35,33 @@ router.post('/stream_key',
         });
     });
  
+router.get('/connection',
+    require('connect-ensure-login').ensureLoggedIn(),
+    (req, res) => {
+        User.findOne({email: req.user.email}, (err, user) => {
+            if (!err) {
+                res.json({
+                    connType: user.connType
+                })
+            }
+        });
+    });
+
+router.post('/connection',
+    require('connect-ensure-login').ensureLoggedIn(),
+    (req, res) => {
+        User.findOneAndUpdate({
+            email: req.user.email
+        }, {
+            connType: req.body.connType
+        }, {
+            upsert: true,
+            new: true,
+        }, (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+    });
  
 module.exports = router;
